@@ -40,6 +40,10 @@ android {
 }
 
 dependencies {
+    implementation(projects.feature.photos)
+
+    implementation(projects.core.data)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
