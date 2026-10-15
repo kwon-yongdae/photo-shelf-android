@@ -26,3 +26,4 @@ rootProject.name = "PhotoShelf"
 include(":app")
 include(":core:domain")
 include(":core:data")
+include(":feature:photos")
