@@ -25,3 +25,4 @@ dependencyResolutionManagement {
 rootProject.name = "PhotoShelf"
 include(":app")
 include(":core:domain")
+include(":core:data")
