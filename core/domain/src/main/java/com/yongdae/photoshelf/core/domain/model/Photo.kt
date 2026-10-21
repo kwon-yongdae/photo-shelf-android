@@ -6,5 +6,5 @@ data class Photo(
     val height: Int?,
     val description: String?,
     val urls: PhotoUrls?,
-    val user: String?,
+    val user: PhotoUser?,
 )
