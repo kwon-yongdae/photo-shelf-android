@@ -1,6 +1,7 @@
 package com.yongdae.photoshelf.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavOptions
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,7 +22,10 @@ fun PhotoShelfNavHost() {
                     navController.navigate("photos/${id}")
                 },
                 goToFavorites = {
-                    navController.navigate("favorites")
+                    navController.navigate("favorites") {
+                        restoreState = true
+                        launchSingleTop = true
+                    }
                 }
             )
         }
@@ -45,7 +49,11 @@ fun PhotoShelfNavHost() {
                     navController.navigate("photos/${id}")
                 },
                 onBack = {
-                    navController.popBackStack()
+                    navController.popBackStack(
+                        route = "favorites",
+                        inclusive = true,
+                        saveState = true,
+                    )
                 },
             )
         }
