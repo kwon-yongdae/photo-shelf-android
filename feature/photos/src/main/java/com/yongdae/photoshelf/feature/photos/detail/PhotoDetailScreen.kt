@@ -39,6 +39,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.yongdae.photoshelf.core.domain.model.Photo
 import com.yongdae.photoshelf.feature.photos.component.FavoriteButton
+import com.yongdae.photoshelf.feature.photos.util.ratio
 
 @Composable
 fun PhotoDetailScreen(
@@ -97,7 +98,7 @@ private fun PhotoDetailContent(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(0.92f)
+                .aspectRatio(photo.ratio)
                 .clip(RoundedCornerShape(14.dp)),
         )
 

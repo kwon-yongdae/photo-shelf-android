@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.yongdae.photoshelf.core.domain.model.Photo
+import com.yongdae.photoshelf.feature.photos.util.ratio
 
 @Composable
 internal fun PhotoItem(
@@ -34,12 +35,6 @@ internal fun PhotoItem(
     onFavoriteClick: () -> Unit,
     modifier: Modifier
 ) {
-    val ratio = if (photo.width > 0 && photo.height > 0) {
-        photo.width.toFloat() / photo.height
-    } else {
-        0.9f
-    }
-
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -57,7 +52,7 @@ internal fun PhotoItem(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(ratio),
+                .aspectRatio(photo.ratio),
         )
 
         Row(
