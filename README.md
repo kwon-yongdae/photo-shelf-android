@@ -1,8 +1,6 @@
 # PhotoShelf
 
-> 이 프로젝트는 비씨카드 페이북 Android 앱 개발 채용 사전 과제로 제작되었습니다.
-
-- 지원자: 권용대
+> Unsplash API를 활용해 사진을 탐색하는 Android 앱입니다.
 
 ## 실행 준비
 
