@@ -5,14 +5,14 @@ import androidx.compose.runtime.State
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yongdae.photoshelf.core.domain.model.Photo
-import com.yongdae.photoshelf.core.domain.usecase.GetPhotosUseCase
+import com.yongdae.photoshelf.core.domain.repository.PhotosRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LatestPhotosViewModel @Inject constructor(
-    private val getPhotosUseCase: GetPhotosUseCase,
+    private val repository: PhotosRepository,
 ) : ViewModel() {
 
     private val _state = mutableStateOf<List<Photo>>(emptyList())
@@ -28,7 +28,7 @@ class LatestPhotosViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val fetched = getPhotosUseCase(nextPage, PER_PAGE)
+                val fetched = repository.getPhotos(nextPage, PER_PAGE)
                 val ids = _state.value.mapTo(mutableSetOf()) { it.id }
                 _state.value += fetched.filter { ids.add(it.id) }
                 nextPage++

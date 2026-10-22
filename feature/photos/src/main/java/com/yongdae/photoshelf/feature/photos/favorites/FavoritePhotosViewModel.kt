@@ -5,42 +5,24 @@ import androidx.compose.runtime.State
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yongdae.photoshelf.core.domain.model.Photo
-import com.yongdae.photoshelf.core.domain.usecase.GetFavoritePhotosUseCase
+import com.yongdae.photoshelf.core.domain.repository.PhotosRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FavoritePhotosViewModel @Inject constructor(
-    private val getFavoritePhotosUseCase: GetFavoritePhotosUseCase,
+    private val repository: PhotosRepository,
 ) : ViewModel() {
 
     private val _state = mutableStateOf<List<Photo>>(emptyList())
     val state: State<List<Photo>> = _state
 
-    private var isLoading = false
-
-    private var nextPage = 1
-
-    fun loadNextPage() {
-        if (isLoading) return
-        isLoading = true
-
+    fun loadPage() {
         viewModelScope.launch {
-            try {
-                val fetched = getFavoritePhotosUseCase(nextPage, PER_PAGE)
-                val ids = _state.value.mapTo(mutableSetOf()) { it.id }
-                _state.value += fetched.filter { ids.add(it.id) }
-                nextPage++
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                isLoading = false
+            repository.observeFavoritePhotos().collect {
+                _state.value = it
             }
         }
-    }
-
-    companion object {
-        private const val PER_PAGE = 10
     }
 }

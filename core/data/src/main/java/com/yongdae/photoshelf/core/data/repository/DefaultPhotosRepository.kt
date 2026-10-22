@@ -1,17 +1,18 @@
 package com.yongdae.photoshelf.core.data.repository
 
-import com.yongdae.photoshelf.core.data.datasorce.PhotosDataSource
-import com.yongdae.photoshelf.core.data.di.PhotosModule.LocalDataSource
-import com.yongdae.photoshelf.core.data.di.PhotosModule.RemoteDataSource
+import com.yongdae.photoshelf.core.data.datasorce.local.LocalPhotosDataSource
+import com.yongdae.photoshelf.core.data.datasorce.local.entity.toEntity
+import com.yongdae.photoshelf.core.data.datasorce.remote.RemotePhotosDataSource
 import com.yongdae.photoshelf.core.domain.model.Photo
 import com.yongdae.photoshelf.core.domain.repository.PhotosRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class DefaultPhotosRepository @Inject constructor(
-    @param:LocalDataSource private val localPhotosDataSource: PhotosDataSource,
-    @param:RemoteDataSource private val remotePhotosDataSource: PhotosDataSource,
+    private val localPhotosDataSource: LocalPhotosDataSource,
+    private val remotePhotosDataSource: RemotePhotosDataSource,
 ) : PhotosRepository {
 
     override suspend fun getPhotos(
@@ -32,14 +33,15 @@ class DefaultPhotosRepository @Inject constructor(
         }
     }
 
-    override suspend fun getFavoritePhotos(
-        page: Int?,
-        perPage: Int?
-    ): List<Photo> {
-        return localPhotosDataSource.getPhotos(page, perPage)
+    override fun observeFavoritePhotos(): Flow<List<Photo>> {
+        return localPhotosDataSource.observeIsFavorite()
     }
 
     override suspend fun toggleFavorite(photo: Photo) {
+        return localPhotosDataSource.toggleFavorite(photo)
+    }
 
+    override fun observeIsFavorite(id: String): Flow<Boolean> {
+        return localPhotosDataSource.observeIsFavorite(id)
     }
 }

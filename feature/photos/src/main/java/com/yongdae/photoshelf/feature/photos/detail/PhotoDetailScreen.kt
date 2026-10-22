@@ -40,7 +40,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.yongdae.photoshelf.core.domain.model.Photo
-import androidx.compose.runtime.collectAsState
 
 @Composable
 fun PhotoDetailScreen(
@@ -49,6 +48,8 @@ fun PhotoDetailScreen(
     viewModel: PhotoDetailViewModel = hiltViewModel(),
 ) {
     val photo by viewModel.photo.collectAsStateWithLifecycle()
+    val isFavorite by viewModel.isFavorite.collectAsStateWithLifecycle()
+    val favoriteEnabled by viewModel.favoriteEnabled.collectAsStateWithLifecycle()
 
     LaunchedEffect(id) {
         viewModel.loadPhoto(id)
@@ -58,8 +59,8 @@ fun PhotoDetailScreen(
         topBar = {
             PhotoDetailTopAppBar(
                 onBack = onBack,
-                isFavorite = viewModel.isFavorite.collectAsState().value,
-                favoriteEnabled = true,
+                isFavorite = isFavorite,
+                favoriteEnabled = favoriteEnabled,
                 onFavoriteClick = { viewModel.onFavoriteClick() }
             )
         },

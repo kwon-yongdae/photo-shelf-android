@@ -55,3 +55,22 @@ fun PhotoEntity.toModel(): Photo =
             ),
         ),
     )
+
+fun Photo.toEntity(): PhotoEntity =
+    PhotoEntity(
+        id = id,
+        width = width,
+        height = height,
+        description = description,
+        rawUrl = urls.raw,
+        fullUrl = urls.full,
+        regularUrl = urls.regular,
+        smallUrl = urls.small,
+        thumbUrl = urls.thumb,
+        userId = user.id,
+        username = user.username,
+        name = user.name,
+        profileImageSmall = user.profileImage.small,
+        profileImageMedium = user.profileImage.medium,
+        profileImageLarge = user.profileImage.large,
+    )

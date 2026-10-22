@@ -17,14 +17,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.yongdae.photoshelf.feature.photos.component.PhotoItem
 import com.yongdae.photoshelf.feature.photos.util.responsiveStaggeredGridCells
-
-private const val PREFETCH_DISTANCE = 5
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,16 +33,8 @@ fun FavoritePhotosScreen(
 
     val listState = rememberLazyStaggeredGridState()
 
-    LaunchedEffect(listState, viewModel) {
-        snapshotFlow {
-            val lastVisibleIndex =
-                listState.layoutInfo.visibleItemsInfo.maxOfOrNull { it.index } ?: -1
-            lastVisibleIndex to viewModel.state.value.size
-        }.collect { (lastVisibleIndex, count) ->
-            if (count == 0 || lastVisibleIndex >= count - PREFETCH_DISTANCE) {
-                viewModel.loadNextPage()
-            }
-        }
+    LaunchedEffect(listState) {
+        viewModel.loadPage()
     }
 
     Scaffold(topBar = {
