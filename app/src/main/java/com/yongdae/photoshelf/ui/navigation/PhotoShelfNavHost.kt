@@ -20,7 +20,7 @@ fun PhotoShelfNavHost() {
                 onPhotoClick = { id ->
                     navController.navigate("photos/${id}")
                 },
-                onFavoritesClick = {
+                goToFavorites = {
                     navController.navigate("favorites")
                 }
             )

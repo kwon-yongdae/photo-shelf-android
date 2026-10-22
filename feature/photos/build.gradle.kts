@@ -27,6 +27,7 @@ android {
 
 dependencies {
     implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.material3)
     implementation(projects.core.domain)
 
     implementation(libs.androidx.appcompat)
