@@ -12,6 +12,9 @@ interface FavoritePhotosDao {
     @Query("SELECT * FROM favorite_photos WHERE id = :id LIMIT 1")
     suspend fun getById(id: String): PhotoEntity?
 
+    @Query("SELECT localPath FROM favorite_photos WHERE id = :id LIMIT 1")
+    suspend fun getLocalPath(id: String): String?
+
     @Query("SELECT EXISTS(SELECT 1 FROM favorite_photos WHERE id = :id)")
     fun observeIsFavorite(id: String): Flow<Boolean>
 

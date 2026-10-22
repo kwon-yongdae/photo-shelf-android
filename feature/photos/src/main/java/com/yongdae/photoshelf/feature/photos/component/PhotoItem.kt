@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.yongdae.photoshelf.core.domain.model.Photo
+import com.yongdae.photoshelf.feature.photos.util.imageModel
 import com.yongdae.photoshelf.feature.photos.util.ratio
 
 @Composable
@@ -45,7 +46,7 @@ internal fun PhotoItem(
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(photo.urls.thumb)
+                .data(photo.imageModel(photo.urls.thumb))
                 .crossfade(true)
                 .build(),
             contentDescription = null,

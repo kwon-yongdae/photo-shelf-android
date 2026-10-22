@@ -39,6 +39,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.yongdae.photoshelf.core.domain.model.Photo
 import com.yongdae.photoshelf.feature.photos.component.FavoriteButton
+import com.yongdae.photoshelf.feature.photos.util.imageModel
 import com.yongdae.photoshelf.feature.photos.util.ratio
 
 @Composable
@@ -91,7 +92,7 @@ private fun PhotoDetailContent(
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(photo.urls.regular)
+                .data(photo.imageModel(photo.urls.regular))
                 .crossfade(true)
                 .build(),
             contentDescription = photo.description,

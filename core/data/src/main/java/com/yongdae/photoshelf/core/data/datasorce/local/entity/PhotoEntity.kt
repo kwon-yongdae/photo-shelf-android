@@ -29,6 +29,8 @@ data class PhotoEntity(
     val profileImageSmall: String,
     val profileImageMedium: String,
     val profileImageLarge: String,
+
+    val localPath: String? = null,
 )
 
 fun PhotoEntity.toModel(): Photo =
@@ -54,9 +56,10 @@ fun PhotoEntity.toModel(): Photo =
                 large = profileImageLarge,
             ),
         ),
+        localPath = localPath,
     )
 
-fun Photo.toEntity(): PhotoEntity =
+fun Photo.toEntity(localPath: String? = this.localPath): PhotoEntity =
     PhotoEntity(
         id = id,
         width = width,
@@ -73,4 +76,5 @@ fun Photo.toEntity(): PhotoEntity =
         profileImageSmall = user.profileImage.small,
         profileImageMedium = user.profileImage.medium,
         profileImageLarge = user.profileImage.large,
+        localPath = localPath,
     )

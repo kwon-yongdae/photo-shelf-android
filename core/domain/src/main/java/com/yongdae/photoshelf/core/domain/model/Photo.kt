@@ -7,4 +7,5 @@ data class Photo(
     val description: String,
     val urls: PhotoUrls,
     val user: PhotoUser,
+    val localPath: String? = null,
 )
