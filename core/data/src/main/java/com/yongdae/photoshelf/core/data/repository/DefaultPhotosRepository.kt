@@ -24,11 +24,12 @@ class DefaultPhotosRepository @Inject constructor(
     override suspend fun getPhoto(
         id: String,
     ): Photo {
-        return runCatching {
+        return try {
             localPhotosDataSource.getPhoto(id)
-        }.onFailure {
+        } catch (e: Exception) {
+            e.printStackTrace()
             remotePhotosDataSource.getPhoto(id)
-        }.getOrThrow()
+        }
     }
 
     override suspend fun getFavoritePhotos(
