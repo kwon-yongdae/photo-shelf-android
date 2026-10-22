@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.yongdae.photoshelf.core.domain.model.Photo
 import com.yongdae.photoshelf.core.domain.repository.PhotosRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,10 +19,22 @@ class FavoritePhotosViewModel @Inject constructor(
     private val _state = mutableStateOf<List<Photo>>(emptyList())
     val state: State<List<Photo>> = _state
 
+    val favoriteIds: Flow<Set<String>> = repository.observeFavoriteIds()
+
     fun loadPage() {
         viewModelScope.launch {
             repository.observeFavoritePhotos().collect {
                 _state.value = it
+            }
+        }
+    }
+
+    fun onFavoriteClick(photo: Photo) {
+        viewModelScope.launch {
+            try {
+                repository.toggleFavorite(photo)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

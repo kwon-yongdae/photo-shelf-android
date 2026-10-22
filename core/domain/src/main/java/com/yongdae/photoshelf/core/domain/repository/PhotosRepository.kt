@@ -10,6 +10,8 @@ interface PhotosRepository {
 
     fun observeFavoritePhotos(): Flow<List<Photo>>
 
+    fun observeFavoriteIds(): Flow<Set<String>>
+
     suspend fun toggleFavorite(photo: Photo)
 
     fun observeIsFavorite(id: String): Flow<Boolean>

@@ -11,10 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,6 +29,7 @@ import com.yongdae.photoshelf.core.domain.model.Photo
 @Composable
 internal fun PhotoItem(
     photo: Photo,
+    isFavorite: Boolean,
     onClick: () -> Unit,
     onFavoriteClick: () -> Unit,
 ) {
@@ -96,13 +93,11 @@ internal fun PhotoItem(
                 modifier = Modifier.weight(1f),
             )
 
-            IconButton(onFavoriteClick) {
-                Icon(
-                    imageVector = Icons.Outlined.FavoriteBorder,
-                    contentDescription = "즐겨찾기",
-                    tint = Color(0xFFE56875),
-                )
-            }
+            FavoriteButton(
+                onClick = onFavoriteClick,
+                enabled = true,
+                isFavorite = isFavorite
+            )
         }
     }
 }

@@ -14,8 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -40,6 +38,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.yongdae.photoshelf.core.domain.model.Photo
+import com.yongdae.photoshelf.feature.photos.component.FavoriteButton
 
 @Composable
 fun PhotoDetailScreen(
@@ -167,24 +166,11 @@ private fun PhotoDetailTopAppBar(
             }
         },
         actions = {
-            IconButton(
+            FavoriteButton(
                 onClick = onFavoriteClick,
-                enabled = favoriteEnabled
-            ) {
-                if (isFavorite) {
-                    Icon(
-                        Icons.Filled.Favorite,
-                        contentDescription = "즐겨찾기 해제",
-                        tint = Color(0xFFE56875),
-                    )
-                } else {
-                    Icon(
-                        Icons.Outlined.FavoriteBorder,
-                        contentDescription = "즐겨찾기 추가",
-                        tint = Color(0xFFE56875),
-                    )
-                }
-            }
+                enabled = favoriteEnabled,
+                isFavorite = isFavorite,
+            )
         }
     )
 }

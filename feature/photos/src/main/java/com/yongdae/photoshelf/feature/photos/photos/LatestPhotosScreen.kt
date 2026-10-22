@@ -17,11 +17,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yongdae.photoshelf.feature.photos.component.PhotoItem
 import com.yongdae.photoshelf.feature.photos.util.responsiveStaggeredGridCells
 
@@ -35,6 +37,9 @@ fun LatestPhotosScreen(
     goToFavorites: () -> Unit,
 ) {
     val listState = rememberLazyStaggeredGridState()
+    val favoriteIds by viewModel.favoriteIds.collectAsStateWithLifecycle(
+        initialValue = emptySet()
+    )
 
     LaunchedEffect(listState, viewModel) {
         snapshotFlow {
@@ -80,8 +85,9 @@ fun LatestPhotosScreen(
                 ) { photo ->
                     PhotoItem(
                         photo,
+                        isFavorite = photo.id in favoriteIds,
                         onClick = { onPhotoClick(photo.id) },
-                        onFavoriteClick = {}
+                        onFavoriteClick = { viewModel.onFavoriteClick(photo) }
                     )
                 }
             },

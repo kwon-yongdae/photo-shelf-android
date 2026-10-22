@@ -15,6 +15,9 @@ interface FavoritePhotosDao {
     @Query("SELECT EXISTS(SELECT 1 FROM favorite_photos WHERE id = :id)")
     fun observeIsFavorite(id: String): Flow<Boolean>
 
+    @Query("SELECT id FROM favorite_photos")
+    fun observeFavoriteIds(): Flow<List<String>>
+
     @Query("SELECT * FROM favorite_photos")
     fun observeAll(): Flow<List<PhotoEntity>>
 

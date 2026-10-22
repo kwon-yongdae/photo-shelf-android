@@ -15,6 +15,10 @@ class LocalPhotosDataSource @Inject constructor(
         return favoritePhotosDao.observeAll().map { it.map { it.toModel() } }
     }
 
+    fun observeFavoriteIds(): Flow<Set<String>> {
+        return favoritePhotosDao.observeFavoriteIds().map { ids -> ids.toSet() }
+    }
+
     suspend fun toggleFavorite(photo: Photo) {
         val existing = favoritePhotosDao.getById(photo.id)
 

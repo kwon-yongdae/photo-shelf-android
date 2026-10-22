@@ -1,7 +1,6 @@
 package com.yongdae.photoshelf.core.data.repository
 
 import com.yongdae.photoshelf.core.data.datasorce.local.LocalPhotosDataSource
-import com.yongdae.photoshelf.core.data.datasorce.local.entity.toEntity
 import com.yongdae.photoshelf.core.data.datasorce.remote.RemotePhotosDataSource
 import com.yongdae.photoshelf.core.domain.model.Photo
 import com.yongdae.photoshelf.core.domain.repository.PhotosRepository
@@ -35,6 +34,10 @@ class DefaultPhotosRepository @Inject constructor(
 
     override fun observeFavoritePhotos(): Flow<List<Photo>> {
         return localPhotosDataSource.observeIsFavorite()
+    }
+
+    override fun observeFavoriteIds(): Flow<Set<String>> {
+        return localPhotosDataSource.observeFavoriteIds()
     }
 
     override suspend fun toggleFavorite(photo: Photo) {

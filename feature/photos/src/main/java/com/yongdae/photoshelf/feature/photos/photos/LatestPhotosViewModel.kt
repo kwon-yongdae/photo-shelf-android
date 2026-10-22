@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.yongdae.photoshelf.core.domain.model.Photo
 import com.yongdae.photoshelf.core.domain.repository.PhotosRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,6 +16,7 @@ class LatestPhotosViewModel @Inject constructor(
     private val repository: PhotosRepository,
 ) : ViewModel() {
 
+    val favoriteIds: Flow<Set<String>> = repository.observeFavoriteIds()
     private val _state = mutableStateOf<List<Photo>>(emptyList())
     val state: State<List<Photo>> = _state
 
@@ -36,6 +38,16 @@ class LatestPhotosViewModel @Inject constructor(
                 e.printStackTrace()
             } finally {
                 isLoading = false
+            }
+        }
+    }
+
+    fun onFavoriteClick(photo: Photo) {
+        viewModelScope.launch {
+            try {
+                repository.toggleFavorite(photo)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
