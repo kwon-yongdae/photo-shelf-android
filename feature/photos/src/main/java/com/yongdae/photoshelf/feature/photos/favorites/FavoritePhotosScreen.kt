@@ -69,7 +69,8 @@ fun FavoritePhotosScreen(
                         photo,
                         isFavorite = photo.id in favoriteIds,
                         onClick = { onPhotoClick(photo.id) },
-                        onFavoriteClick = { viewModel.onFavoriteClick(photo) }
+                        onFavoriteClick = { viewModel.onFavoriteClick(photo) },
+                        modifier = Modifier.animateItem()
                     )
                 }
             },

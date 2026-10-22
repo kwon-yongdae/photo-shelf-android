@@ -32,6 +32,7 @@ internal fun PhotoItem(
     isFavorite: Boolean,
     onClick: () -> Unit,
     onFavoriteClick: () -> Unit,
+    modifier: Modifier
 ) {
     val ratio = if (photo.width > 0 && photo.height > 0) {
         photo.width.toFloat() / photo.height
@@ -40,7 +41,7 @@ internal fun PhotoItem(
     }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .shadow(6.dp, RoundedCornerShape(12.dp))
             .clip(RoundedCornerShape(12.dp))
