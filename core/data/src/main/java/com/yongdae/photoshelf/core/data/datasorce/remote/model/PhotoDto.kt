@@ -15,7 +15,7 @@ data class PhotoDto(
     @SerialName("blur_hash") val blurHash: String?,
     @SerialName("downloads") val downloads: Int? = null,
     @SerialName("public_domain") val publicDomain: Boolean? = null,
-    @SerialName("description") val description: String,
+    @SerialName("description") val description: String?,
     @SerialName("alt_description") val altDescription: String?,
     @SerialName("user") val user: PhotoUserDto,
     @SerialName("exif") val exif: PhotoExifDto? = null,
@@ -31,7 +31,7 @@ fun PhotoDto.toModel(): Photo =
         id = id,
         width = width,
         height = height,
-        description = description,
+        description = description ?: "",
         urls = urls.toModel(),
         user = user.toModel(),
     )
