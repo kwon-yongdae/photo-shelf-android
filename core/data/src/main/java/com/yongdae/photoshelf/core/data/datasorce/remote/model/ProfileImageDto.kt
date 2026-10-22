@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ProfileImageDto(
-    @SerialName("small") val small: String?,
-    @SerialName("medium") val medium: String?,
-    @SerialName("large") val large: String?,
+    @SerialName("small") val small: String,
+    @SerialName("medium") val medium: String,
+    @SerialName("large") val large: String,
 )
 
 fun ProfileImageDto.toModel(): ProfileImage =
