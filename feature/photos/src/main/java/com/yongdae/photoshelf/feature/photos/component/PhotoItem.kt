@@ -92,7 +92,6 @@ internal fun PhotoItem(
 
             FavoriteButton(
                 onClick = onFavoriteClick,
-                enabled = true,
                 isFavorite = isFavorite
             )
         }

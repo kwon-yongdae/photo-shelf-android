@@ -11,12 +11,10 @@ import androidx.compose.ui.graphics.Color
 @Composable
 internal fun FavoriteButton(
     onClick: () -> Unit,
-    enabled: Boolean,
     isFavorite: Boolean,
 ) {
     IconButton(
         onClick = onClick,
-        enabled = enabled
     ) {
         if (isFavorite) {
             Icon(

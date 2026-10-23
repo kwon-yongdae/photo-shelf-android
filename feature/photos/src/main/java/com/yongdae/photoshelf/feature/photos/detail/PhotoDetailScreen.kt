@@ -23,7 +23,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,18 +49,12 @@ fun PhotoDetailScreen(
 ) {
     val photo by viewModel.photo.collectAsStateWithLifecycle()
     val isFavorite by viewModel.isFavorite.collectAsStateWithLifecycle()
-    val favoriteEnabled by viewModel.favoriteEnabled.collectAsStateWithLifecycle()
-
-    LaunchedEffect(id) {
-        viewModel.loadPhoto(id)
-    }
 
     Scaffold(
         topBar = {
             PhotoDetailTopAppBar(
                 onBack = onBack,
                 isFavorite = isFavorite,
-                favoriteEnabled = favoriteEnabled,
                 onFavoriteClick = { viewModel.onFavoriteClick() }
             )
         },
@@ -157,7 +150,6 @@ private fun PhotoDetailContent(
 private fun PhotoDetailTopAppBar(
     onBack: () -> Unit,
     isFavorite: Boolean,
-    favoriteEnabled: Boolean,
     onFavoriteClick: () -> Unit,
 ) {
     TopAppBar(
@@ -170,7 +162,6 @@ private fun PhotoDetailTopAppBar(
         actions = {
             FavoriteButton(
                 onClick = onFavoriteClick,
-                enabled = favoriteEnabled,
                 isFavorite = isFavorite,
             )
         }
